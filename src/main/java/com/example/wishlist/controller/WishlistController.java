@@ -20,7 +20,7 @@ public class WishlistController {
         this.wishlistService = wishlistService;
     }
 
-    @GetMapping
+    @GetMapping(path="")
     public String index(Model model) {
         model.addAttribute("wishlist", new Wishlist());
         return "index";
