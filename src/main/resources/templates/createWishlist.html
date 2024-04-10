@@ -11,19 +11,19 @@
 <h1>Now create your list</h1>
 
 
-    <form>
+<form action="/wishlist/newwishlist" method="post">
 
 
-                <input type="text" id="name" required>
-                <label for="name">Wishlist name</label>
+    <label for="name">Wishlist name</label>
+    <input type="text" id="name" required>
+
+    <label for="description">Description.</label>
+    <input type="text" id="description" required></input>
 
 
-                <input type="text" id="description" required></input>
-                <label for="description">Description.</label>
+        <button type="submit">Create</button>
 
-
-                    <button type="submit">Create</button>
-    </form>
+</form>
 
 </body>
 </html>
