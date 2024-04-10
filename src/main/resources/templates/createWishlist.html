@@ -4,10 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/createList.css}" rel="stylesheet">
 </head>
 <body>
 
 <h1>Now create your list</h1>
+
+
+    <form>
+
+
+                <input type="text" id="name" required>
+                <label for="name">Wishlist name</label>
+
+
+                <input type="text" id="description" required></input>
+                <label for="description">Description.</label>
+
+
+                    <button type="submit">Create</button>
+    </form>
 
 </body>
 </html>
