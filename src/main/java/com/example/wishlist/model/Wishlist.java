@@ -2,12 +2,10 @@ package com.example.wishlist.model;
 
 public class Wishlist {
     public String name;
-    public String description;
     public int id;
 
-    public Wishlist(String name, String description, int id) {
+    public Wishlist(String name, int id) {
         this.name = name;
-        this.description = description;
         this.id = id;
     }
 

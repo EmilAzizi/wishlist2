@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <title>Welcome</title>
     <link th:href="@{/styles.css}" rel="stylesheet">
-
 </head>
 <body>
 
-<h1>Welcome to wishlist creator</h1>
+<h1>Welcome to the wishlist creator</h1>
 
 
-<a th:href="@{'/wishlist/create'}">
-    <button type="button">Opret ønskeliste</button>
-</a>
+<div id="container">
+    <a th:href="@{'/wishlist/create'}">
+        <button type="button">Create wishlist</button>
+    </a>
+</div>
 
 
 </body>
