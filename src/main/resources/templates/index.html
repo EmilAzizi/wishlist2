@@ -14,8 +14,9 @@
 <h1>Welcome to wishlist creator</h1>
 
 <ul>
-    <li th:each="wishlist : ${wishlist}">
-        <p th:text="'Name: ' + ${wishlist.name}"></p>
+    <li th:each="wish : ${wishlist}">
+        <h1 th:text="'Name: ' + ${wish.getName()}"></h1>
+        <button class="createbutton" type="button">Opret ønskeliste</button>
     </li>
 </ul>
 

@@ -17,7 +17,9 @@ public class WishlistRepository {
     }
 
     public void createWishList() throws SQLException {
-        wishlists.add(database.recieveWish("wish"));
+        if(!wishlists.contains(database.recieveWish("wish"))){
+            wishlists.add(database.recieveWish("wish"));
+        }
     }
 
     public List<Wishlist> getAll() throws SQLException{

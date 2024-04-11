@@ -32,6 +32,7 @@ public class WishlistDatabase {
 
     public Wishlist recieveWish(String wishListName) throws SQLException{
         wishes = new Wish();
+        wishlist = new Wishlist();
         ArrayList<Wish> wishlists = new ArrayList<>();
         wishlist.setName(wishListName);
         wishlist.setWishList(wishlists);
