@@ -22,10 +22,7 @@ public class WishlistRepository {
         }
     }
 
-    public List<Wishlist> getAll() throws SQLException{
-        for(Wishlist wishlist : wishlists){
-            System.out.println(wishlist);
-        }
+    public List<Wishlist> getAll(){
         return wishlists;
     }
 

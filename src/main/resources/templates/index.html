@@ -15,8 +15,7 @@
 
 <ul>
     <li th:each="wish : ${wishlist}">
-        <h1 th:text="'Name: ' + ${wish.getName()}"></h1>
-        <button class="createbutton" type="button">Opret ønskeliste</button>
+        <p th:text="'Name: ' + ${wish.getName()}"></p>
     </li>
 </ul>
 
