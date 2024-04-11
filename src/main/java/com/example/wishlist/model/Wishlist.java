@@ -24,4 +24,8 @@ public class Wishlist {
     public List<Wishes> getWishList(){
         return wishList;
     }
+
+    public String getName() {
+        return name;
+    }
 }
