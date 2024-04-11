@@ -1,15 +1,27 @@
 package com.example.wishlist.model;
 
-public class Wishlist {
-    public String name;
-    public String description;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Wishlist(String name, String description) {
+public class Wishlist {
+    private String name;
+    private final int id = 0;
+    public List<Wishes> wishList;
+
+    public Wishlist() {
         this.name = name;
-        this.description = description;
+        wishList = new ArrayList<>();
     }
 
-    public Wishlist(){
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getName(){
+        return name;
+    }
+
+    public List<Wishes> getWishList(){
+        return wishList;
     }
 }
