@@ -4,6 +4,10 @@ import com.example.wishlist.model.Wishlist;
 import com.example.wishlist.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class WishlistService {
 
@@ -11,6 +15,10 @@ public class WishlistService {
 
     public WishlistService() {
         this.wishlistRepository = new WishlistRepository();
+    }
+
+    public List<Wishlist> getAllFromRepository() throws SQLException {
+        return wishlistRepository.getAll();
     }
 
 }

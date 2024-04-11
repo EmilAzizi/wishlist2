@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+
 @Controller
 @RequestMapping("wishlist")
 public class WishlistController {
@@ -18,8 +20,8 @@ public class WishlistController {
     }
 
     @GetMapping(path = "")
-    public String index(Model model) {
-        model.addAttribute("wishlist", new Wishlist());
+    public String index(Model model) throws SQLException {
+        model.addAttribute("wishlist", wishlistService.getAllFromRepository());
         return "index";
     }
 

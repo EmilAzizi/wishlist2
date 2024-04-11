@@ -10,7 +10,6 @@ public class Wishlist {
 
     public Wishlist() {
         this.name = name;
-        wishList = new ArrayList<>();
     }
 
     public void setName(String name) {
@@ -23,5 +22,9 @@ public class Wishlist {
 
     public String getName() {
         return name;
+    }
+
+    public void setWishList(List<Wish> wishList) {
+        this.wishList = wishList;
     }
 }

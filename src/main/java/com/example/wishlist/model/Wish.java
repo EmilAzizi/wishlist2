@@ -10,6 +10,14 @@ public class Wish {
     public Wish() {
     }
 
+    public Wish(int ID, String name, int price, int quantity, String description){
+        this.ID = ID;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+    }
+
         public int getID () {
             return ID;
         }
