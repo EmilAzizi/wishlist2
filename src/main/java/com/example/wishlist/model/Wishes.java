@@ -58,4 +58,15 @@ public class Wishes {
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    @Override
+    public String toString() {
+        return "Wishes{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", description='" + description + '\'' +
+                ", ID=" + ID +
+                '}';
+    }
 }

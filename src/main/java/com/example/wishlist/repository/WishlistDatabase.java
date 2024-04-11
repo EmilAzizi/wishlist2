@@ -24,4 +24,33 @@ public class WishlistDatabase {
             //st.executeUpdate("INSERT INTO wishobjects " + "VALUES (id, 'Phone', '8000', 'Iphone', '1')");
         }
     }
+
+    public void deleteWish()throws SQLException{
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
+            //Statement st = con.createStatement();
+            PreparedStatement PS = con.prepareStatement("DELETE FROM wishobjects WHERE wishName='Bil'");
+            PS.executeUpdate();
+        }
+    }
+
+    public Wishes recieveWish() throws SQLException{
+        wishes = new Wishes();
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
+            //Statement st = con.createStatement();
+            Statement statement = con.createStatement();
+            String selectSQL = "SELECT * FROM wishobjects";
+            ResultSet resultSet = statement.executeQuery(selectSQL);
+
+            while(resultSet.next()){
+                wishes.setID(resultSet.getInt("wishID"));
+                wishes.setName(resultSet.getString("wishName"));
+                wishes.setQuantity(resultSet.getInt("wishAmount"));
+                wishes.setDescription(resultSet.getString("wishDescription"));
+                wishes.setPrice(resultSet.getInt("wishPrice"));
+            }
+        }
+        return wishes;
+    }
+
+
 }
