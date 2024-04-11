@@ -20,7 +20,7 @@ public class WishlistApplication {
         //database.insertWish(wish);
         //database.deleteWish(wish);
         List<Wish> wishList = new ArrayList<>();
-        database.createWishList("new");
+        //database.createWishList();
 
 //        for(Wish wishes : database.recieveWish()){
 //            System.out.println(wishes.toString());

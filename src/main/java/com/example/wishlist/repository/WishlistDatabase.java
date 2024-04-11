@@ -31,10 +31,9 @@ public class WishlistDatabase {
     }
 
     public Wishlist recieveWish(String wishListName) throws SQLException{
-        wishes = new Wish();
         wishlist = new Wishlist();
         ArrayList<Wish> wishlists = new ArrayList<>();
-        wishlist.setName(wishListName);
+        //wishlist.setName();
         wishlist.setWishList(wishlists);
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
             Statement statement = con.createStatement();
@@ -55,17 +54,24 @@ public class WishlistDatabase {
         return wishlist;
     }
 
-    public void createWishList(String name) throws SQLException{
+    public Wishlist createWishList(Wishlist wishlistFromUser) throws SQLException{
+        Wishlist wishlist = new Wishlist();
+        ArrayList<Wish> wishlists = new ArrayList<>();
+        wishlist.setName(wishlistFromUser.getName());
+        wishlist.setWishList(wishlists);
+
+        String tableName = wishlistFromUser.getName().replaceAll("\\s", "");
+
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-            Statement statement = con.createStatement();
-            String createTable = "CREATE TABLE IF NOT EXISTS wishes (" +
+            PreparedStatement statement = con.prepareStatement("CREATE TABLE IF NOT EXISTS " + tableName + " (" +
                     "wishID int," +
                     "wishName varchar(255)," +
                     "wishPrice varchar(255)," +
                     "wishDescription varchar(255)," +
-                    "wishAmount varchar(255))";
-            statement.executeUpdate(createTable);
+                    "wishAmount varchar(255))");
+            statement.executeUpdate();
         }
+        return wishlist;
     }
 
 

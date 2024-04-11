@@ -21,4 +21,8 @@ public class WishlistService {
         return wishlistRepository.getAll();
     }
 
+    public void createWishlistFromRepository(Wishlist wishlist) throws SQLException{
+        wishlistRepository.createWishList(wishlist);
+    }
+
 }

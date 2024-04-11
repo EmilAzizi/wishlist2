@@ -27,8 +27,15 @@ public class WishlistController {
 
     @GetMapping("/create")
     public String createWishlist(Model model) {
-        model.addAttribute("createWishlist", new Wishlist());
+        Wishlist newWishlist = new Wishlist();
+        model.addAttribute("createWishlist", newWishlist);
         return "createWishlist";
+    }
+
+    @PostMapping(path="/create")
+    public String createNewWishList(@ModelAttribute Wishlist wishlist) throws SQLException{
+        wishlistService.createWishlistFromRepository(wishlist);
+        return "redirect:/wishlist";
     }
 
     @PostMapping("/newwishlist")

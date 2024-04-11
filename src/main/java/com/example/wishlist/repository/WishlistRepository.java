@@ -16,14 +16,16 @@ public class WishlistRepository {
         database = new WishlistDatabase();
     }
 
-    public void createWishList() throws SQLException {
-        if(!wishlists.contains(database.recieveWish("wish"))){
-            wishlists.add(database.recieveWish("wish"));
+    public void createWishList(Wishlist wishlist) throws SQLException {
+        if(!wishlists.contains(database.createWishList(wishlist))){
+            wishlists.add(database.createWishList(wishlist));
         }
     }
 
     public List<Wishlist> getAll() throws SQLException{
-        createWishList();
+        for(Wishlist wishlist : wishlists){
+            System.out.println(wishlist);
+        }
         return wishlists;
     }
 
