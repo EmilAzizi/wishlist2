@@ -1,15 +1,15 @@
 package com.example.wishlist.repository;
 
-import com.example.wishlist.model.Wishes;
+import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.Wishlist;
 
 import java.sql.*;
 
 public class WishlistDatabase {
-    Wishes wishes;
+    Wish wishes;
     Wishlist wishlist;
 
-    public void insertWish(Wishes wish)throws SQLException{
+    public void insertWish(Wish wish)throws SQLException{
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
             //Statement st = con.createStatement();
             PreparedStatement PS = con.prepareStatement("INSERT INTO wishobjects " + "VALUES (?, ?, ?, ?, ?)");
@@ -33,8 +33,8 @@ public class WishlistDatabase {
         }
     }
 
-    public Wishes recieveWish() throws SQLException{
-        wishes = new Wishes();
+    public Wish recieveWish() throws SQLException{
+        wishes = new Wish();
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
             //Statement st = con.createStatement();
             Statement statement = con.createStatement();
