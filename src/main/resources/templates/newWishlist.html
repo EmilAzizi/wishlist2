@@ -4,10 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/wishlistPage.css}" rel="stylesheet">
 </head>
 <body>
     <a th:href="@{'/wishlist/createwish'}">
-        <button type="button">Create new wish</button>
+        <button class="button1" type="button">Create new wish</button>
     </a>
+
+    <form action="/wishlist/delete" method="post">
+        <input type="hidden" name="wishId" value="<!-- Wish ID here -->">
+        <button class="button2" type="submit">Delete wish</button>
+    </form>
+
 </body>
 </html>
