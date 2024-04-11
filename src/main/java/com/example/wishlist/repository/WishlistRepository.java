@@ -9,7 +9,7 @@ import java.util.*;
 
 @Repository
 public class WishlistRepository {
-    List<Wishlist> wishlists = new ArrayList<>();
+    ArrayList<Wishlist> wishlists = new ArrayList<>();
     WishlistDatabase database;
 
     public WishlistRepository(){
@@ -17,8 +17,30 @@ public class WishlistRepository {
     }
 
     public void createWishList(Wishlist wishlist) throws SQLException {
+        int id = 0;
         if(!wishlists.contains(database.createWishList(wishlist))){
             wishlists.add(database.createWishList(wishlist));
+        }
+
+        for(Wishlist WL : wishlists){
+            WL.setID(id);
+            id++;
+            System.out.println(WL.getID());
+        }
+    }
+
+    public Wishlist findByID(int ID){
+        Wishlist wishlistToFind = null;
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == ID){
+                wishlistToFind = wishlist;
+            }
+        }
+
+        if(wishlistToFind != null){
+            return wishlistToFind;
+        } else {
+            return null;
         }
     }
 
@@ -26,5 +48,12 @@ public class WishlistRepository {
         return wishlists;
     }
 
-
+    public void updateWishlist(Wishlist wishlistToUpdate) throws SQLException{
+        for(Wishlist WL : wishlists){
+            if(wishlistToUpdate.getID() == WL.getID()){
+                wishlists.set(WL.getID(), wishlistToUpdate);
+                database.checkForChangedNames(wishlists);
+            }
+        }
+    }
 }

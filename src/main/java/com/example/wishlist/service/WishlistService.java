@@ -25,4 +25,13 @@ public class WishlistService {
         wishlistRepository.createWishList(wishlist);
     }
 
+    public Wishlist findByIDFromRepository(int ID){
+        Wishlist wishlist = wishlistRepository.findByID(ID);
+        return wishlist;
+    }
+
+    public void updateWishlist(Wishlist wishlistToUpdate) throws SQLException {
+        wishlistRepository.updateWishlist(wishlistToUpdate);
+    }
+
 }

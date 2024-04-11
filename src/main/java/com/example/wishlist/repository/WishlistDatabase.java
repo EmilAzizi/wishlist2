@@ -74,5 +74,15 @@ public class WishlistDatabase {
         return wishlist;
     }
 
+    public void checkForChangedNames(ArrayList<Wishlist> wishlists) throws SQLException{
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
+            String tableName;
+            for(Wishlist WL : wishlists){
+                tableName = WL.getName();
+                if(WL.getName() != tableName){}
+            }
+        }
+    }
+
 
 }

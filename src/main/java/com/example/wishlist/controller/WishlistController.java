@@ -32,6 +32,19 @@ public class WishlistController {
         return "createWishlist";
     }
 
+    @GetMapping("/update")
+    public String showWishlistToUpdate(@PathVariable int ID, Model model){
+        Wishlist wishlist = wishlistService.findByIDFromRepository(ID);
+        model.addAttribute("wishlistToUpdate", wishlist);
+        return "update";
+    }
+
+    @PostMapping("/update")
+    public String updateWishlist(Wishlist wishlistToUpdate) throws SQLException {
+        wishlistService.updateWishlist(wishlistToUpdate);
+        return "redirect:/wishlist";
+    }
+
     @PostMapping(path="/create")
     public String createNewWishList(@ModelAttribute Wishlist wishlist) throws SQLException{
         wishlistService.createWishlistFromRepository(wishlist);

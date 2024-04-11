@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Wishlist {
     public String name;
-    private final int id = 0;
+    private int ID = 0;
     public List<Wish> wishList;
 
     public Wishlist() {
@@ -21,6 +21,14 @@ public class Wishlist {
 
     public String getName() {
         return name;
+    }
+
+    public void setID(int ID){
+        this.ID = ID;
+    }
+
+    public int getID(){
+        return ID;
     }
 
     public void setWishList(List<Wish> wishList) {
