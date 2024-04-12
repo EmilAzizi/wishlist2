@@ -25,7 +25,6 @@ public class WishlistRepository {
         for(Wishlist WL : wishlists){
             WL.setID(id);
             id++;
-            System.out.println(WL.getID());
         }
     }
 
