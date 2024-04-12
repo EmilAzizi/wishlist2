@@ -11,12 +11,9 @@
 <h1>Please create your list</h1>
 
 
-<form action="/wishlist/newwishlist" method="post">
-
-
+<form action="/wishlist/create" method="post" th:object="${createWishlist}">
     <label for="name">Wishlist name</label>
-    <input type="text" id="name" required>
-
+    <input type="text" id="name" name="name" required th:field="*{name}">
         <button type="submit">Create</button>
 
 </form>

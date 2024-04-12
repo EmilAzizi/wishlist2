@@ -13,6 +13,12 @@
 
 <h1>Welcome to wishlist creator</h1>
 
+<ul>
+    <li th:each="wish : ${wishlist}">
+        <p th:text="'Name: ' + ${wish.getName()}"></p>
+    </li>
+</ul>
+
 <div class="createbuttoncenter">
 <a th:href="@{'/wishlist/create'}">
     <button class="createbutton" type="button">Opret ønskeliste</button>

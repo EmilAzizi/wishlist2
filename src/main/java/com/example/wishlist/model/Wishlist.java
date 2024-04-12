@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wishlist {
-    private String name;
-    private final int id = 0;
+    public String name;
+    private int ID = 0;
     public List<Wish> wishList;
 
     public Wishlist() {
-        this.name = name;
-        wishList = new ArrayList<>();
     }
 
     public void setName(String name) {
@@ -23,5 +21,17 @@ public class Wishlist {
 
     public String getName() {
         return name;
+    }
+
+    public void setID(int ID){
+        this.ID = ID;
+    }
+
+    public int getID(){
+        return ID;
+    }
+
+    public void setWishList(List<Wish> wishList) {
+        this.wishList = wishList;
     }
 }

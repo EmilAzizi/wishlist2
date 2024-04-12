@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+
 @Controller
 @RequestMapping("wishlist")
 public class WishlistController {
@@ -18,15 +20,35 @@ public class WishlistController {
     }
 
     @GetMapping(path = "")
-    public String index(Model model) {
-        model.addAttribute("wishlist", new Wishlist());
+    public String index(Model model) throws SQLException {
+        model.addAttribute("wishlist", wishlistService.getAllFromRepository());
         return "index";
     }
 
     @GetMapping("/create")
     public String createWishlist(Model model) {
-        model.addAttribute("createWishlist", new Wishlist());
+        Wishlist newWishlist = new Wishlist();
+        model.addAttribute("createWishlist", newWishlist);
         return "createWishlist";
+    }
+
+    @GetMapping("/update")
+    public String showWishlistToUpdate(@PathVariable int ID, Model model){
+        Wishlist wishlist = wishlistService.findByIDFromRepository(ID);
+        model.addAttribute("wishlistToUpdate", wishlist);
+        return "update";
+    }
+
+    @PostMapping("/update")
+    public String updateWishlist(Wishlist wishlistToUpdate) throws SQLException {
+        wishlistService.updateWishlist(wishlistToUpdate);
+        return "redirect:/wishlist";
+    }
+
+    @PostMapping(path="/create")
+    public String createNewWishList(@ModelAttribute Wishlist wishlist) throws SQLException{
+        wishlistService.createWishlistFromRepository(wishlist);
+        return "redirect:/wishlist";
     }
 
     @PostMapping("/newwishlist")
