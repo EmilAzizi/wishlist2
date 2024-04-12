@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+h1 {
+    text-align: center;
+    color: red;
+    position: relative;
+    top: 10px;
+}
+
+
+.createbutton {
+     background-color: green;
+    color: white;
+    border-radius: 10px;
+    width: 150px;
+    height: 100px;
+    font-size: larger;
+    position: relative;
+    top: 200px;
+}
+
+.createbuttoncenter {
+    text-align: center;
+}

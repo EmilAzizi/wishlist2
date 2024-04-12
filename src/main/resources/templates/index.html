@@ -4,16 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+    <link th:href="@{/styles.css}" rel="stylesheet">
 </head>
 <body>
 
+
+<h1>Welcome to the wishlist creator</h1>
+
 <h1>Welcome to wishlist creator</h1>
 
+<ul>
+    <li th:each="wish : ${wishlist}">
+        <p th:text="'Name: ' + ${wish.getName()}"></p>
+    </li>
+</ul>
 
+<div class="createbuttoncenter">
 <a th:href="@{'/wishlist/create'}">
-<button type="button">Opret ønskeliste</button>
+    <button class="createbutton" type="button">Opret ønskeliste</button>
 </a>
-
+</div>
 
 
 </body>
