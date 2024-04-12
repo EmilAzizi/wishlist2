@@ -7,8 +7,18 @@
 </head>
 <body>
 
-<form action="wishlist/update" method="get" th:object="${wishlistToUpdate}">
-
+<form action="/wishlist/update" method="post" th:object="${wishlistToUpdate}">
+    <input type="hidden" name="ID" th:value="${wishlistToUpdate.ID}">
+    <p>
+        <label>Name: </label>
+        <input name="name" type="text" th:value="${wishlistToUpdate.name}">
+    </p>
+    <p>
+        <button type="submit">Update wishlist</button>
+        <a th:href="@{'/wishlist'}">
+            <button type="button">Cancel</button>
+        </a>
+    </p>
 </form>
 
 </body>

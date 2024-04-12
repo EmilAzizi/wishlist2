@@ -5,10 +5,13 @@ import com.example.wishlist.model.Wishlist;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class WishlistDatabase {
     Wish wishes;
     Wishlist wishlist;
+
+    List<Wishlist> originalList = new ArrayList<>();
 
     public void insertWish(Wish wish)throws SQLException{
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
@@ -59,6 +62,7 @@ public class WishlistDatabase {
         ArrayList<Wish> wishlists = new ArrayList<>();
         wishlist.setName(wishlistFromUser.getName());
         wishlist.setWishList(wishlists);
+        int ID = 0;
 
         String tableName = wishlistFromUser.getName().replaceAll("\\s", "");
 
@@ -71,15 +75,44 @@ public class WishlistDatabase {
                     "wishAmount varchar(255))");
             statement.executeUpdate();
         }
+        originalList.add(wishlist);
+        for(Wishlist wishlist1 : originalList){
+            wishlist1.setID(ID);
+            ID++;
+        }
         return wishlist;
     }
 
-    public void checkForChangedNames(ArrayList<Wishlist> wishlists) throws SQLException{
+    public void checkForChangedNames(Wishlist wishlistToChangeName, String newName) throws SQLException{
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-            String tableName;
-            for(Wishlist WL : wishlists){
-                tableName = WL.getName();
-                if(WL.getName() != tableName){}
+            String oldName = "";
+            for(Wishlist WL : originalList){
+                if(WL.getID() == wishlistToChangeName.getID()){
+                    oldName = WL.getName();
+                    WL.setName(newName);
+                    break;
+                }
+            }
+            String sql = "ALTER TABLE " + oldName.replaceAll("\\s", "") + " RENAME TO " + newName.replaceAll("\\s", "");
+
+            try(Statement statement = con.createStatement()){
+                statement.executeUpdate(sql);
+            }
+        }
+    }
+
+    public void removeWishlistFromDB(Wishlist wishlist) throws SQLException {
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
+            for(Wishlist wishlist1 : originalList){
+                if(wishlist1.getID() == wishlist.getID()){
+                    originalList.remove(wishlist1);
+                    String sql = "DROP TABLE " + wishlist.getName();
+                    try(Statement statement = con.createStatement()){
+                        statement.executeUpdate(sql);
+                    }
+                    System.out.println(wishlist1.getName() + " " + wishlist1.getID());
+                    break;
+                }
             }
         }
     }
