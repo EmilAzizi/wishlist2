@@ -71,4 +71,13 @@ public class WishlistRepository {
             database.removeWishlistFromDB(wishlistToBeRemoved);
         }
     }
+
+    public void addWishToWishlist(int ID, Wish wishFromUser) throws SQLException {
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == ID){
+                Wish wishToBeAdded = database.createWish(wishlist, wishFromUser);
+                wishlist.getWishList().add(wishToBeAdded);
+            }
+        }
+    }
 }

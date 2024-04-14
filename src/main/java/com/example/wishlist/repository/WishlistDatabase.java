@@ -15,12 +15,12 @@ public class WishlistDatabase {
 
     public void insertWish(Wish wish)throws SQLException{
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-            PreparedStatement PS = con.prepareStatement("INSERT INTO wishobjects" + "VALUES (?, ?, ?, ?, ?)");
-            PS.setInt(1, wish.getID());
-            PS.setString(2, wish.getName());
-            PS.setString(3, String.valueOf(wish.getPrice()));
-            PS.setString(4, wish.getDescription());
-            PS.setString(5, String.valueOf(wish.getQuantity()));
+            PreparedStatement PS = con.prepareStatement("INSERT INTO wishobjects (wishName, wishPice, wishDescription, wishAmount)" +
+                    "VALUES (?, ?, ?, ?);");
+            PS.setString(1, wish.getName());
+            PS.setString(2, String.valueOf(wish.getPrice()));
+            PS.setString(3, wish.getDescription());
+            PS.setString(4, String.valueOf(wish.getAmount()));
             PS.executeUpdate();
         }
     }
@@ -33,28 +33,23 @@ public class WishlistDatabase {
         }
     }
 
-    public Wishlist recieveWish(String wishListName) throws SQLException{
-        wishlist = new Wishlist();
-        ArrayList<Wish> wishlists = new ArrayList<>();
-        //wishlist.setName();
-        wishlist.setWishList(wishlists);
+    public Wish createWish(Wishlist wishlist, Wish wishFromUser) throws SQLException{
+        insertWish(wishFromUser);
+        Wish wish = wishFromUser;
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
             Statement statement = con.createStatement();
-            String selectSQL = "SELECT * FROM wishobjects";
+            String selectSQL = "SELECT * FROM " + wishlist.getName();
             ResultSet resultSet = statement.executeQuery(selectSQL);
-
             while(resultSet.next()){
                 int id = resultSet.getInt("wishID");
                 String name = resultSet.getString("wishName");
                 int amount = resultSet.getInt("wishAmount");
                 String description = resultSet.getString("wishDescription");
                 int price = resultSet.getInt("wishPrice");
-                Wish wish = new Wish(id, name, price, amount, description);
-                //int ID, String name, int price, int quantity, String description
-                wishlists.add(wish);
+                //int ID, String name, int price, int quantity, String description;
             }
         }
-        return wishlist;
+        return wish;
     }
 
     public Wishlist createWishList(Wishlist wishlistFromUser) throws SQLException{

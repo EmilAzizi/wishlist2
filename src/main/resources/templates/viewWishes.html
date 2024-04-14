@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Welcome to the wishes</h1>
+<ul>
+  <li th:each="wishes : ${wishes}">
+      <p th:text="'Name: ' + ${wishes.getName()}"></p>
+      <form th:action="@{'/wishlist/' + ${wishes.ID} + '/wishes/createWish'}" method="get">
+          <button type="submit">Add new wish</button>
+      </form>
+  </li>
+</ul>
+<p>
+</p>
+</body>
+</html>
