@@ -11,7 +11,7 @@ public class WishlistDatabase {
     Wishlist wishlist;
 
     public void insertWish(Wish wish)throws SQLException{
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "As3146594250")){
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "************")){
             PreparedStatement PS = con.prepareStatement("INSERT INTO wishobjects" + "VALUES (?, ?, ?, ?, ?)");
             PS.setInt(1, wish.getID());
             PS.setString(2, wish.getName());
@@ -23,7 +23,7 @@ public class WishlistDatabase {
     }
 
     public void deleteWish(Wish wish)throws SQLException{
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "As3146594250")){
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "************")){
             PreparedStatement PS = con.prepareStatement("DELETE FROM wishobjects WHERE wishName=?");
             PS.setString(1, wish.getName());
             PS.executeUpdate();
@@ -35,7 +35,7 @@ public class WishlistDatabase {
         ArrayList<Wish> wishlists = new ArrayList<>();
         //wishlist.setName();
         wishlist.setWishList(wishlists);
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "As3146594250")){
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "************")){
             Statement statement = con.createStatement();
             String selectSQL = "SELECT * FROM wishobjects";
             ResultSet resultSet = statement.executeQuery(selectSQL);
@@ -62,7 +62,7 @@ public class WishlistDatabase {
 
         String tableName = wishlistFromUser.getName().replaceAll("\\s", "");
 
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "As3146594250")){
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "************")){
             PreparedStatement statement = con.prepareStatement("CREATE TABLE IF NOT EXISTS " + tableName + " (" +
                     "wishID int," +
                     "wishName varchar(255)," +
@@ -75,7 +75,7 @@ public class WishlistDatabase {
     }
 
     public void checkForChangedNames(ArrayList<Wishlist> wishlists) throws SQLException{
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "As3146594250")){
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "************")){
             String tableName;
             for(Wishlist WL : wishlists){
                 tableName = WL.getName();
