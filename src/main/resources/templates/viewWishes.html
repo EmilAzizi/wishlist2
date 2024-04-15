@@ -10,12 +10,21 @@
 <ul>
   <li th:each="wishes : ${wishes.getWishList()}">
       <p th:text="'Name: ' + ${wishes.getName()}"></p>
+      <form th:action="@{'/wishlist/' + ${wishlistID} + '/wishes/' + ${wishes.getID()} + '/updateWish'}" method="get">
+          <button type="submit">Update wish</button>
+      </form>
+      <form th:action="@{'/wishlist/' + ${wishlistID} + '/wishes/' + ${wishes.getID()} + '/delete'}" method="post">
+          <button type="submit">Delete wish</button>
+      </form>
   </li>
     <form th:action="@{'/wishlist/' + ${wishes.ID} + '/wishes/createWish'}" method="get">
         <button type="submit">Add new wish</button>
     </form>
 </ul>
 <p>
+    <a th:href="@{'/wishlist'}">
+        <button type="button">Cancel</button>
+    </a>
 </p>
 </body>
 </html>

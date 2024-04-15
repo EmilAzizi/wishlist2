@@ -80,4 +80,61 @@ public class WishlistRepository {
             }
         }
     }
+
+    public Wish findWishByID(int wishlistID, int wishID){
+        Wish wishToBeUpdated = null;
+        Wishlist wishlistToJumpInto = null;
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == wishlistID){
+                wishlistToJumpInto = wishlist;
+            }
+        }
+        for(Wish wish : wishlistToJumpInto.getWishList()){
+            if(wish.getID() == wishID){
+                wishToBeUpdated = wish;
+            }
+        }
+        if(!wishToBeUpdated.equals(null)){
+            return wishToBeUpdated;
+        } else {
+            return null;
+        }
+    }
+
+    public void updateWish(int wishlistID, int wishID, Wish wishToUpdate) throws SQLException {
+        Wishlist wishlistToSearch = null;
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == wishlistID){
+                wishlistToSearch = wishlist;
+            }
+        }
+        for(Wish wish : wishlistToSearch.getWishList()){
+            if(wish.getID() == wishID){
+                wish.setName(wishToUpdate.getName());
+                wish.setDescription(wishToUpdate.getDescription());
+                wish.setAmount(wishToUpdate.getAmount());
+                wish.setPrice(wishToUpdate.getPrice());
+                database.updateWish(wish, wishlistToSearch);
+            }
+            System.out.println(wish.getID());
+        }
+    }
+    public void deleteWish(int wishlistID, int wishID) throws SQLException {
+        Wish wishToBeRemoved = null;
+        Wishlist wishlistToSearch = null;
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == wishlistID){
+                wishlistToSearch = wishlist;
+            }
+        }
+        for(Wish wishToFind : wishlistToSearch.getWishList()){
+            if(wishToFind.getID() == wishID){
+                wishToBeRemoved = wishToFind;
+            }
+        }
+        if(!wishToBeRemoved.equals(null)){
+            wishlistToSearch.getWishList().remove(wishToBeRemoved);
+            database.deleteWish(wishToBeRemoved, wishlistToSearch);
+        }
+    }
 }

@@ -42,4 +42,16 @@ public class WishlistService {
         wishlistRepository.addWishToWishlist(ID, wishFromUser);
     }
 
+    public Wish findWishByIDFromRepository(int wishlistID, int wishID){
+        return wishlistRepository.findWishByID(wishlistID, wishID);
+    }
+
+    public void updateWishFromRepository(int wishlistID, int wishID, Wish wishToUpdate) throws SQLException {
+        wishlistRepository.updateWish(wishlistID, wishID, wishToUpdate);
+    }
+
+    public void deleteWishFromRepository(int wishlistID, int wishID) throws SQLException {
+        wishlistRepository.deleteWish(wishlistID, wishID);
+    }
+
 }

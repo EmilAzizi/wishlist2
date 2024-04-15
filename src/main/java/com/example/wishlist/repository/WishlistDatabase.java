@@ -15,8 +15,13 @@ public class WishlistDatabase {
 
     public void insertWish(Wish wish, String wishNameFromUser)throws SQLException{
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-            PreparedStatement PS = con.prepareStatement("INSERT INTO " + wishNameFromUser + "(wishName, wishPrice, wishDescription, wishAmount)" +
-                    "VALUES (?, ?, ?, ?);");
+            String tableName = "";
+            if (wishNameFromUser.contains(" ")) {
+                tableName = wishNameFromUser.replaceAll("\\s+", "");
+            } else {
+                tableName = wishNameFromUser;
+            }
+            PreparedStatement PS = con.prepareStatement("INSERT INTO " + tableName + " (wishName, wishPrice, wishDescription, wishAmount)" + "VALUES (?, ?, ?, ?);");
             PS.setString(1, wish.getName());
             PS.setString(2, String.valueOf(wish.getPrice()));
             PS.setString(3, wish.getDescription());
@@ -25,9 +30,15 @@ public class WishlistDatabase {
         }
     }
 
-    public void deleteWish(Wish wish)throws SQLException{
+    public void deleteWish(Wish wish, Wishlist wishlist)throws SQLException{
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-            PreparedStatement PS = con.prepareStatement("DELETE FROM wishobjects WHERE wishName=?");
+            String tableName = "";
+            if (wishlist.getName().contains(" ")) {
+                tableName = wishlist.getName().replaceAll("\\s+", "");
+            } else {
+                tableName = wishlist.getName();
+            }
+            PreparedStatement PS = con.prepareStatement("DELETE FROM " + tableName + " WHERE wishName=?");
             PS.setString(1, wish.getName());
             PS.executeUpdate();
         }
@@ -38,45 +49,84 @@ public class WishlistDatabase {
         Wish wish = wishFromUser;
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
             Statement statement = con.createStatement();
-            String selectSQL = "SELECT * FROM " + wishlist.getName();
+            String tableName = "";
+            if (wishlist.getName().contains(" ")) {
+                tableName = wishlist.getName().replaceAll("\\s+", "");
+            } else {
+                tableName = wishlist.getName();
+            }
+            String selectSQL = "SELECT * FROM " + tableName;
             ResultSet resultSet = statement.executeQuery(selectSQL);
             while(resultSet.next()){
-                int id = resultSet.getInt("wishID");
+                int ID = resultSet.getInt("wishID");
                 String name = resultSet.getString("wishName");
                 int amount = resultSet.getInt("wishAmount");
                 String description = resultSet.getString("wishDescription");
                 int price = resultSet.getInt("wishPrice");
                 //int ID, String name, int price, int quantity, String description;
+                wish.setID(ID);
+                wish.setName(name);
+                wish.setPrice(price);
+                wish.setDescription(description);
+                wish.setAmount(amount);
             }
         }
         return wish;
     }
 
-    public Wishlist createWishList(Wishlist wishlistFromUser) throws SQLException{
+//    public Wishlist createWishList(Wishlist wishlistFromUser) throws SQLException{
+//        Wishlist wishlist = new Wishlist();
+//        ArrayList<Wish> wishlists = new ArrayList<>();
+//        wishlist.setName(wishlistFromUser.getName());
+//        wishlist.setWishList(wishlists);
+//        String tableName = "";
+//
+//        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
+//            if(wishlistFromUser.getName().contains(" ")){
+//                wishlistFromUser.getName().replaceAll("\\s", "");
+//            } else {
+//                tableName = wishlistFromUser.getName();
+//            }
+//            PreparedStatement statement = con.prepareStatement("CREATE TABLE IF NOT EXISTS " + tableName + " (" +
+//                    "wishID int AUTO_INCREMENT PRIMARY KEY," +
+//                    "wishName varchar(255)," +
+//                    "wishPrice varchar(255)," +
+//                    "wishDescription varchar(255)," +
+//                    "wishAmount varchar(255))");
+//            statement.executeUpdate();
+//        }
+//        originalList.add(wishlist);
+//        return wishlist;
+//    }
+
+    public Wishlist createWishList(Wishlist wishlistFromUser) throws SQLException {
         Wishlist wishlist = new Wishlist();
         ArrayList<Wish> wishlists = new ArrayList<>();
         wishlist.setName(wishlistFromUser.getName());
         wishlist.setWishList(wishlists);
-        int ID = 0;
+        String tableName = "";
 
-        String tableName = wishlistFromUser.getName().replaceAll("\\s", "");
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes", "root", "Emperiusvalor1!")) {
+            if (wishlistFromUser.getName().contains(" ")) {
+                tableName = wishlistFromUser.getName().replaceAll("\\s+", "");
+            } else {
+                tableName = wishlistFromUser.getName();
+            }
 
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-            PreparedStatement statement = con.prepareStatement("CREATE TABLE IF NOT EXISTS " + tableName + " (" +
-                    "wishID int," +
+            String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (" +
+                    "wishID int AUTO_INCREMENT PRIMARY KEY," +
                     "wishName varchar(255)," +
                     "wishPrice varchar(255)," +
                     "wishDescription varchar(255)," +
-                    "wishAmount varchar(255))");
+                    "wishAmount varchar(255))";
+
+            PreparedStatement statement = con.prepareStatement(sql);
             statement.executeUpdate();
         }
         originalList.add(wishlist);
-        for(Wishlist wishlist1 : originalList){
-            wishlist1.setID(ID);
-            ID++;
-        }
         return wishlist;
     }
+
 
     public void checkForChangedNames(Wishlist wishlistToChangeName, String newName) throws SQLException{
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
@@ -98,19 +148,40 @@ public class WishlistDatabase {
 
     public void removeWishlistFromDB(Wishlist wishlist) throws SQLException {
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
+            String tableName = "";
             for(Wishlist wishlist1 : originalList){
                 if(wishlist1.getID() == wishlist.getID()){
+                    if(wishlist1.getName().contains(" ")){
+                        tableName = tableName = wishlist.getName().replaceAll("\\s+", "");
+                    } else {
+                        tableName = wishlist1.getName();
+                    }
                     originalList.remove(wishlist1);
-                    String sql = "DROP TABLE " + wishlist.getName();
+                    String sql = "DROP TABLE " + tableName;
                     try(Statement statement = con.createStatement()){
                         statement.executeUpdate(sql);
                     }
-                    System.out.println(wishlist1.getName() + " " + wishlist1.getID());
                     break;
                 }
             }
         }
     }
 
-
+    public void updateWish(Wish wishToUpdate, Wishlist wishlist) throws SQLException {
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
+            String tableName = "";
+            if (wishlist.getName().contains(" ")) {
+                tableName = wishlist.getName().replaceAll("\\s+", "");
+            } else {
+                tableName = wishlist.getName();
+            }
+            PreparedStatement statement = con.prepareStatement("UPDATE " + tableName +
+                    " SET wishName = ?, wishPrice = ?, wishDescription = ?, wishAmount = ? WHERE wishID = " + wishToUpdate.getID());
+            statement.setString(1, wishToUpdate.getName());
+            statement.setString(2, String.valueOf(wishToUpdate.getPrice()));
+            statement.setString(3, wishToUpdate.getDescription());
+            statement.setString(4, String.valueOf(wishToUpdate.getAmount()));
+            statement.executeUpdate();
+        }
+    }
 }

@@ -49,11 +49,11 @@
     </p>
     <p>
         <label>Description:</label>
-        <input name="description" type="text" th:field="*{name}">
+        <input name="description" type="text" th:field="*{description}">
     </p>
     <p>
         <button type="submit">Add wish</button>
-        <a th:href="@{'/wishlist/wishes'}">
+        <a th:href="@{'/wishlist/' + ${wishlistID} + '/wishes'}">
             <button type="button">Cancel</button>
         </a>
     </p>
