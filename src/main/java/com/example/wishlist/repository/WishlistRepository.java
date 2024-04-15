@@ -25,7 +25,6 @@ public class WishlistRepository {
         for(Wishlist WL : wishlists){
             WL.setID(id);
             id++;
-            System.out.println(WL.getID());
         }
     }
 
@@ -48,12 +47,28 @@ public class WishlistRepository {
         return wishlists;
     }
 
-    public void updateWishlist(Wishlist wishlistToUpdate) throws SQLException{
+    public void updateWishlist(Wishlist wishlistToUpdate, String newName) throws SQLException{
         for(Wishlist WL : wishlists){
             if(wishlistToUpdate.getID() == WL.getID()){
-                wishlists.set(WL.getID(), wishlistToUpdate);
-                database.checkForChangedNames(wishlists);
+                database.checkForChangedNames(wishlistToUpdate, newName);
+                WL.setName(newName);
             }
+        }
+    }
+
+    public void deleteWishlist(int ID) throws SQLException {
+        Wishlist wishlistToBeRemoved = null;
+        if(!wishlists.isEmpty()){
+            for(Wishlist wishlist : wishlists){
+                if(wishlist.getID() == ID){
+                    wishlistToBeRemoved = wishlist;
+                }
+            }
+        } else {
+        }
+        if(!wishlistToBeRemoved.equals(null)){
+            wishlists.remove(wishlistToBeRemoved);
+            database.removeWishlistFromDB(wishlistToBeRemoved);
         }
     }
 }

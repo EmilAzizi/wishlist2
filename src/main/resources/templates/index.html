@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
@@ -16,6 +15,15 @@
 <ul>
     <li th:each="wish : ${wishlist}">
         <p th:text="'Name: ' + ${wish.getName()}"></p>
+        <form th:action="@{'/wishlist/' + ${wish.ID} + '/update'}" method="get">
+            <button type="submit">Update</button>
+        </form>
+        <form th:action="@{'/wishlist/' + ${wish.ID} + '/delete'}" method="post">
+            <button type="submit">Delete</button>
+        </form>
+        <form th:action="@{'/wishlist/' + ${wish.name} + '/wishes'}">
+            <button type="submit">Choose wishlist</button>
+        </form>
     </li>
 </ul>
 

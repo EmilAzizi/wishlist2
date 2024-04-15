@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Update the wishlist</title>
 </head>
 <body>
 
-<form action="wishlist/update" method="get" th:object="${wishlistToUpdate}">
-
+<form action="/wishlist/update" method="post" th:object="${wishlistToUpdate}">
+    <input type="hidden" name="ID" th:value="${wishlistToUpdate.ID}">
+    <p>
+        <label>Name: </label>
+        <input name="name" type="text" th:value="${wishlistToUpdate.name}">
+    </p>
+    <p>
+        <button type="submit">Update wishlist</button>
+        <a th:href="@{'/wishlist'}">
+            <button type="button">Cancel</button>
+        </a>
+    </p>
 </form>
 
 </body>
