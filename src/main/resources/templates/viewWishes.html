@@ -8,12 +8,12 @@
 <body>
 <h1>Welcome to the wishes</h1>
 <ul>
-  <li th:each="wishes : ${wishes}">
+  <li th:each="wishes : ${wishes.getWishList()}">
       <p th:text="'Name: ' + ${wishes.getName()}"></p>
-      <form th:action="@{'/wishlist/' + ${wishes.ID} + '/wishes/createWish'}" method="get">
-          <button type="submit">Add new wish</button>
-      </form>
   </li>
+    <form th:action="@{'/wishlist/' + ${wishes.ID} + '/wishes/createWish'}" method="get">
+        <button type="submit">Add new wish</button>
+    </form>
 </ul>
 <p>
 </p>

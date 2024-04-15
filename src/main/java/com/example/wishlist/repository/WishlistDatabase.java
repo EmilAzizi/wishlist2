@@ -13,9 +13,9 @@ public class WishlistDatabase {
 
     List<Wishlist> originalList = new ArrayList<>();
 
-    public void insertWish(Wish wish)throws SQLException{
+    public void insertWish(Wish wish, String wishNameFromUser)throws SQLException{
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-            PreparedStatement PS = con.prepareStatement("INSERT INTO wishobjects (wishName, wishPice, wishDescription, wishAmount)" +
+            PreparedStatement PS = con.prepareStatement("INSERT INTO " + wishNameFromUser + "(wishName, wishPrice, wishDescription, wishAmount)" +
                     "VALUES (?, ?, ?, ?);");
             PS.setString(1, wish.getName());
             PS.setString(2, String.valueOf(wish.getPrice()));
@@ -34,7 +34,7 @@ public class WishlistDatabase {
     }
 
     public Wish createWish(Wishlist wishlist, Wish wishFromUser) throws SQLException{
-        insertWish(wishFromUser);
+        insertWish(wishFromUser, wishlist.getName());
         Wish wish = wishFromUser;
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
             Statement statement = con.createStatement();

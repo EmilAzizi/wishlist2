@@ -34,7 +34,7 @@
 <!--    </div>-->
 
 <!--</form>-->
-<form action="/wishlist/{ID}/wishes/createWish" method="post" th:object="${wish}">
+<form th:action="@{'/wishlist/' + ${wishlistID} + '/wishes/createWish'}" method="post" th:object="${wish}">
     <p>
         <label>Name:</label>
         <input name="name" type="text" th:field="*{name}">
@@ -53,7 +53,7 @@
     </p>
     <p>
         <button type="submit">Add wish</button>
-        <a th:href="@{'/wishlist/{ID}/wishes'}">
+        <a th:href="@{'/wishlist/wishes'}">
             <button type="button">Cancel</button>
         </a>
     </p>

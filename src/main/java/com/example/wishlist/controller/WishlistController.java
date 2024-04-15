@@ -65,13 +65,15 @@ public class WishlistController {
     @GetMapping("/{ID}/wishes")
     public String viewWishlist(@PathVariable int ID, Model model){
         Wishlist wishlist = wishlistService.findByIDFromRepository(ID);
-        model.addAttribute("wishes", wishlist.getWishList());
+        model.addAttribute("wishes", wishlist);
         return "viewWishes";
     }
 
     @GetMapping("/{ID}/wishes/createWish")
     public String createWish(@PathVariable int ID, Model model){
         Wish wish = new Wish();
+        Wishlist wishlist = wishlistService.findByIDFromRepository(ID);
+        model.addAttribute("wishlistID", wishlist.getID());
         model.addAttribute("wish", wish);
         return "createWish";
     }
