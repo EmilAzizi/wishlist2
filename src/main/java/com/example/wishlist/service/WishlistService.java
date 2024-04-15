@@ -29,9 +29,12 @@ public class WishlistService {
         Wishlist wishlist = wishlistRepository.findByID(ID);
         return wishlist;
     }
+    public void updateWishlist(Wishlist wishlistToUpdate, String newName) throws SQLException {
+        wishlistRepository.updateWishlist(wishlistToUpdate, newName);
+    }
 
-    public void updateWishlist(Wishlist wishlistToUpdate) throws SQLException {
-        wishlistRepository.updateWishlist(wishlistToUpdate);
+    public void deleteWishlist(int ID) throws SQLException {
+        wishlistRepository.deleteWishlist(ID);
     }
 
 }
