@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WishlistDatabase {
-    Wish wishes;
-    Wishlist wishlist;
 
     List<Wishlist> originalList = new ArrayList<>();
 
@@ -38,8 +36,8 @@ public class WishlistDatabase {
             } else {
                 tableName = wishlist.getName();
             }
-            PreparedStatement PS = con.prepareStatement("DELETE FROM " + tableName + " WHERE wishName=?");
-            PS.setString(1, wish.getName());
+            PreparedStatement PS = con.prepareStatement("DELETE FROM " + tableName + " WHERE wishID=?");
+            PS.setInt(1, wish.getID());
             PS.executeUpdate();
         }
     }
@@ -63,7 +61,7 @@ public class WishlistDatabase {
                 int amount = resultSet.getInt("wishAmount");
                 String description = resultSet.getString("wishDescription");
                 int price = resultSet.getInt("wishPrice");
-                //int ID, String name, int price, int quantity, String description;
+
                 wish.setID(ID);
                 wish.setName(name);
                 wish.setPrice(price);
@@ -73,32 +71,6 @@ public class WishlistDatabase {
         }
         return wish;
     }
-
-//    public Wishlist createWishList(Wishlist wishlistFromUser) throws SQLException{
-//        Wishlist wishlist = new Wishlist();
-//        ArrayList<Wish> wishlists = new ArrayList<>();
-//        wishlist.setName(wishlistFromUser.getName());
-//        wishlist.setWishList(wishlists);
-//        String tableName = "";
-//
-//        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-//            if(wishlistFromUser.getName().contains(" ")){
-//                wishlistFromUser.getName().replaceAll("\\s", "");
-//            } else {
-//                tableName = wishlistFromUser.getName();
-//            }
-//            PreparedStatement statement = con.prepareStatement("CREATE TABLE IF NOT EXISTS " + tableName + " (" +
-//                    "wishID int AUTO_INCREMENT PRIMARY KEY," +
-//                    "wishName varchar(255)," +
-//                    "wishPrice varchar(255)," +
-//                    "wishDescription varchar(255)," +
-//                    "wishAmount varchar(255))");
-//            statement.executeUpdate();
-//        }
-//        originalList.add(wishlist);
-//        return wishlist;
-//    }
-
     public Wishlist createWishList(Wishlist wishlistFromUser) throws SQLException {
         Wishlist wishlist = new Wishlist();
         ArrayList<Wish> wishlists = new ArrayList<>();
@@ -138,7 +110,7 @@ public class WishlistDatabase {
                     break;
                 }
             }
-            String sql = "ALTER TABLE " + oldName.replaceAll("\\s", "") + " RENAME TO " + newName.replaceAll("\\s", "");
+            String sql = "ALTER TABLE " + oldName.replaceAll("\\s+", "") + " RENAME TO " + newName.replaceAll("\\s+", "");
 
             try(Statement statement = con.createStatement()){
                 statement.executeUpdate(sql);
@@ -152,7 +124,7 @@ public class WishlistDatabase {
             for(Wishlist wishlist1 : originalList){
                 if(wishlist1.getID() == wishlist.getID()){
                     if(wishlist1.getName().contains(" ")){
-                        tableName = tableName = wishlist.getName().replaceAll("\\s+", "");
+                        tableName = wishlist.getName().replaceAll("\\s+", "");
                     } else {
                         tableName = wishlist1.getName();
                     }

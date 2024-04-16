@@ -7,8 +7,7 @@ public class Wish {
     public String description;
     public int ID = 0;
 
-    public Wish() {
-    }
+    public Wish() {}
 
     public Wish(int ID, String name, int price, int quantity, String description){
         this.ID = ID;

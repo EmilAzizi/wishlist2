@@ -25,13 +25,6 @@ public class WishlistController {
         return "index";
     }
 
-    @GetMapping("/create")
-    public String createWishlist(Model model) {
-        Wishlist newWishlist = new Wishlist();
-        model.addAttribute("createWishlist", newWishlist);
-        return "createWishlist";
-    }
-
     @GetMapping("/{ID}/update")
     public String showWishlistToUpdate(@PathVariable int ID, Model model){
         Wishlist wishlist = wishlistService.findByIDFromRepository(ID);
@@ -40,20 +33,22 @@ public class WishlistController {
     }
 
     @PostMapping("/update")
-    public String updateWishlist(Wishlist wishlistToUpdate) throws SQLException {
+    public String updateWishlist(@ModelAttribute Wishlist wishlistToUpdate) throws SQLException {
         wishlistService.updateWishlist(wishlistToUpdate, wishlistToUpdate.getName());
         return "redirect:/wishlist";
+    }
+
+    @GetMapping("/create")
+    public String createWishlist(Model model) {
+        Wishlist newWishlist = new Wishlist();
+        model.addAttribute("createWishlist", newWishlist);
+        return "createWishlist";
     }
 
     @PostMapping(path="/create")
     public String createNewWishList(@ModelAttribute Wishlist wishlist) throws SQLException{
         wishlistService.createWishlistFromRepository(wishlist);
         return "redirect:/wishlist";
-    }
-
-    @PostMapping("/newwishlist")
-    public String newWishlist(@ModelAttribute("wishlist") Wishlist wishlist) {
-        return "newWishlist";
     }
 
     @PostMapping("/{ID}/delete")

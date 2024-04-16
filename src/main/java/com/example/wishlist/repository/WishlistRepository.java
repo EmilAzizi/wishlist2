@@ -18,8 +18,10 @@ public class WishlistRepository {
 
     public void createWishList(Wishlist wishlist) throws SQLException {
         int id = 0;
-        if(!wishlists.contains(database.createWishList(wishlist))){
-            wishlists.add(database.createWishList(wishlist));
+        Wishlist wishlistToCreate = database.createWishList(wishlist);
+
+        if(!wishlists.contains(wishlistToCreate)){
+            wishlists.add(wishlistToCreate);
         }
 
         for(Wishlist WL : wishlists){
@@ -116,7 +118,6 @@ public class WishlistRepository {
                 wish.setPrice(wishToUpdate.getPrice());
                 database.updateWish(wish, wishlistToSearch);
             }
-            System.out.println(wish.getID());
         }
     }
     public void deleteWish(int wishlistID, int wishID) throws SQLException {

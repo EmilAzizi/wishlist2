@@ -18,7 +18,7 @@ public class WishlistService {
         this.wishlistRepository = new WishlistRepository();
     }
 
-    public List<Wishlist> getAllFromRepository() throws SQLException {
+    public List<Wishlist> getAllFromRepository(){
         return wishlistRepository.getAll();
     }
 
