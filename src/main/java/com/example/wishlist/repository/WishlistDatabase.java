@@ -103,18 +103,20 @@ public class WishlistDatabase {
     }
 
     public void removeWishlistFromDB(Wishlist wishlist) throws SQLException {
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
-            for(Wishlist wishlist1 : originalList){
-                if(wishlist1.getID() == wishlist.getID()){
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes", "root", "Emperiusvalor1!")) {
+            for (Wishlist wishlist1 : originalList) {
+                if (wishlist1.getID() == wishlist.getID()) {
                     originalList.remove(wishlist1);
                     String sql = "DROP TABLE " + wishlist.getName();
-                    try(Statement statement = con.createStatement()){
+                    try (Statement statement = con.createStatement()) {
                         statement.executeUpdate(sql);
                     }
                     System.out.println(wishlist1.getName() + " " + wishlist1.getID());
                     break;
                 }
 
-
+            }
+        }
+    }
 
 }
