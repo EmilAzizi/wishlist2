@@ -136,7 +136,6 @@ public class WishlistDatabase {
                     break;
                 }
 
-
     public void updateWish(Wish wishToUpdate, Wishlist wishlist) throws SQLException {
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
             String tableName = "";
