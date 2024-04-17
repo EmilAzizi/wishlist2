@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+<h1>Update your wish</h1>
+<form th:action="@{'/wishlist/' + ${wishlistID} + '/wishes/' + ${wishID} + '/updateWish'}" method="post" th:object="${wish}">
+    <p>
+        <label>Name: </label>
+        <input name="name" type="text" th:value="${wish.name}">
+    </p>
+    <p>
+        <label>price: </label>
+        <input name="price" type="number" th:value="${wish.price}">
+    </p>
+    <p>
+        <label>amount: </label>
+        <input name="amount" type="number" th:value="${wish.amount}">
+    </p>
+    <p>
+        <label>description: </label>
+        <input name="description" type="text" th:value="${wish.description}">
+    </p>
+    <p>
+        <button type="submit">Update wishlist</button>
+        <a th:href="@{'/wishlist/' + ${wishlistID} + '/wishes'}">
+            <button type="button">Cancel</button>
+        </a>
+    </p>
+</form>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.wishlist.service;
 
+import com.example.wishlist.model.Wish;
 import com.example.wishlist.model.Wishlist;
 import com.example.wishlist.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class WishlistService {
         this.wishlistRepository = new WishlistRepository();
     }
 
-    public List<Wishlist> getAllFromRepository() throws SQLException {
+    public List<Wishlist> getAllFromRepository(){
         return wishlistRepository.getAll();
     }
 
@@ -35,6 +36,22 @@ public class WishlistService {
 
     public void deleteWishlist(int ID) throws SQLException {
         wishlistRepository.deleteWishlist(ID);
+    }
+
+    public void createWish(int ID, Wish wishFromUser) throws SQLException {
+        wishlistRepository.addWishToWishlist(ID, wishFromUser);
+    }
+
+    public Wish findWishByIDFromRepository(int wishlistID, int wishID){
+        return wishlistRepository.findWishByID(wishlistID, wishID);
+    }
+
+    public void updateWishFromRepository(int wishlistID, int wishID, Wish wishToUpdate) throws SQLException {
+        wishlistRepository.updateWish(wishlistID, wishID, wishToUpdate);
+    }
+
+    public void deleteWishFromRepository(int wishlistID, int wishID) throws SQLException {
+        wishlistRepository.deleteWish(wishlistID, wishID);
     }
 
 }
