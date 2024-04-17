@@ -18,8 +18,10 @@ public class WishlistRepository {
 
     public void createWishList(Wishlist wishlist) throws SQLException {
         int id = 0;
-        if(!wishlists.contains(database.createWishList(wishlist))){
-            wishlists.add(database.createWishList(wishlist));
+        Wishlist wishlistToCreate = database.createWishList(wishlist);
+
+        if(!wishlists.contains(wishlistToCreate)){
+            wishlists.add(wishlistToCreate);
         }
 
         for(Wishlist WL : wishlists){
@@ -69,6 +71,71 @@ public class WishlistRepository {
         if(!wishlistToBeRemoved.equals(null)){
             wishlists.remove(wishlistToBeRemoved);
             database.removeWishlistFromDB(wishlistToBeRemoved);
+        }
+    }
+
+    public void addWishToWishlist(int ID, Wish wishFromUser) throws SQLException {
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == ID){
+                Wish wishToBeAdded = database.createWish(wishlist, wishFromUser);
+                wishlist.getWishList().add(wishToBeAdded);
+            }
+        }
+    }
+
+    public Wish findWishByID(int wishlistID, int wishID){
+        Wish wishToBeUpdated = null;
+        Wishlist wishlistToJumpInto = null;
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == wishlistID){
+                wishlistToJumpInto = wishlist;
+            }
+        }
+        for(Wish wish : wishlistToJumpInto.getWishList()){
+            if(wish.getID() == wishID){
+                wishToBeUpdated = wish;
+            }
+        }
+        if(!wishToBeUpdated.equals(null)){
+            return wishToBeUpdated;
+        } else {
+            return null;
+        }
+    }
+
+    public void updateWish(int wishlistID, int wishID, Wish wishToUpdate) throws SQLException {
+        Wishlist wishlistToSearch = null;
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == wishlistID){
+                wishlistToSearch = wishlist;
+            }
+        }
+        for(Wish wish : wishlistToSearch.getWishList()){
+            if(wish.getID() == wishID){
+                wish.setName(wishToUpdate.getName());
+                wish.setDescription(wishToUpdate.getDescription());
+                wish.setAmount(wishToUpdate.getAmount());
+                wish.setPrice(wishToUpdate.getPrice());
+                database.updateWish(wish, wishlistToSearch);
+            }
+        }
+    }
+    public void deleteWish(int wishlistID, int wishID) throws SQLException {
+        Wish wishToBeRemoved = null;
+        Wishlist wishlistToSearch = null;
+        for(Wishlist wishlist : wishlists){
+            if(wishlist.getID() == wishlistID){
+                wishlistToSearch = wishlist;
+            }
+        }
+        for(Wish wishToFind : wishlistToSearch.getWishList()){
+            if(wishToFind.getID() == wishID){
+                wishToBeRemoved = wishToFind;
+            }
+        }
+        if(!wishToBeRemoved.equals(null)){
+            wishlistToSearch.getWishList().remove(wishToBeRemoved);
+            database.deleteWish(wishToBeRemoved, wishlistToSearch);
         }
     }
 }
