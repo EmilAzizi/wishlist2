@@ -21,8 +21,8 @@
         <form th:action="@{'/wishlist/' + ${wish.ID} + '/delete'}" method="post">
             <button type="submit">Delete</button>
         </form>
-        <form th:action="@{'/wishlist/' + ${wish.name} + '/wishes'}">
-            <button type="submit">Choose wishlist</button>
+        <form th:action="@{'/wishlist/' + ${wish.ID} + '/wishes'}" method="get">
+            <button type="submit">View wishlist</button>
         </form>
     </li>
 </ul>
