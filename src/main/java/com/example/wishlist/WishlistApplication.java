@@ -1,7 +1,7 @@
 package com.example.wishlist;
 
 import com.example.wishlist.model.Wish;
-import com.example.wishlist.repository.WishlistDatabase;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,7 +15,7 @@ public class WishlistApplication {
     public static void main(String[] args) throws SQLException {
         Wish wish = new Wish(2, "PC", 5000, 1, "gamerPC");
         //int ID, String name, int price, int quantity, String description
-        WishlistDatabase database = new WishlistDatabase();
+
 
         //database.insertWish(wish);
         //database.deleteWish(wish);
