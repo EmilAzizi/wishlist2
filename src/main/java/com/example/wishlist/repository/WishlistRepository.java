@@ -19,6 +19,7 @@ public class WishlistRepository {
             private String db_password;
 
     ArrayList<Wishlist> wishlists = new ArrayList<>();
+    List<Wishlist> originalList = new ArrayList<>();
 
     public WishlistRepository(){
     }
@@ -145,8 +146,6 @@ public class WishlistRepository {
             deleteWish(wishToBeRemoved, wishlistToSearch);
         }
     }
-
-    List<Wishlist> originalList = new ArrayList<>();
 
     public void insertWish(Wish wish, String wishNameFromUser)throws SQLException{
         try(Connection con = DriverManager.getConnection(db_url,db_username, db_password)){
