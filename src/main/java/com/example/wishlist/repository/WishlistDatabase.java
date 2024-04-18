@@ -119,23 +119,25 @@ public class WishlistDatabase {
     }
 
     public void removeWishlistFromDB(Wishlist wishlist) throws SQLException {
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes", "root", "Emperiusvalor1!")) {
             String tableName = "";
-            for(Wishlist wishlist1 : originalList){
-                if(wishlist1.getID() == wishlist.getID()){
-                    if(wishlist1.getName().contains(" ")){
+            for (Wishlist wishlist1 : originalList) {
+                if (wishlist1.getID() == wishlist.getID()) {
+                    if (wishlist1.getName().contains(" ")) {
                         tableName = wishlist.getName().replaceAll("\\s+", "");
                     } else {
                         tableName = wishlist1.getName();
                     }
                     originalList.remove(wishlist1);
                     String sql = "DROP TABLE " + tableName;
-                    try(Statement statement = con.createStatement()){
+                    try (Statement statement = con.createStatement()) {
                         statement.executeUpdate(sql);
                     }
                     break;
                 }
-
+            }
+        }
+    }
 
     public void updateWish(Wish wishToUpdate, Wishlist wishlist) throws SQLException {
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
