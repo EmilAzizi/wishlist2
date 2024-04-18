@@ -84,7 +84,7 @@ public class WishlistDatabase {
             } else {
                 tableName = wishlistFromUser.getName();
             }
-
+          
             String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (" +
                     "wishID int AUTO_INCREMENT PRIMARY KEY," +
                     "wishName varchar(255)," +
@@ -138,6 +138,7 @@ public class WishlistDatabase {
             }
         }
     }
+
     public void updateWish(Wish wishToUpdate, Wishlist wishlist) throws SQLException {
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishes","root", "Emperiusvalor1!")){
             String tableName = "";
